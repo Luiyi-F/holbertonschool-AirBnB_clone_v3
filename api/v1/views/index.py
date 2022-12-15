@@ -15,13 +15,13 @@ hbnb_d = {
 
 
 @app_views.route("/status", strict_slashes=False)
-def hbnbstatus():
+def hbnbStatus():
     """status hbnb"""
     return jsonify({"status": "OK"})
 
 
 @app_views.route("/stats", strict_slashes=False)
-def hbnbstats():
+def hbnbStats():
     """stats hbnb"""
     stats_dict = {}
     for key, value in hbnb_d.items():
