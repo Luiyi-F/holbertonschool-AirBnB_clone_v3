@@ -5,7 +5,7 @@ from flask import Flask, jsonify
 
 
 @app_views.route("/status", strict_slashes=False)
-def hbnbstatus(execption):
+def hbnbstatus():
     """status hbnb"""
     return jsonify({"status": "ok"})
 
