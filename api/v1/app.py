@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """creation app"""
 from os import getenv
-from flask import Flask
+from flask import Flask, make_response, jsonify
 from models import storage
 from api.v1.views import app_views
 
@@ -13,6 +13,11 @@ app.register_blueprint(app_views)
 def teardown(code):
     """teardown appcpmtext"""
     storage.close()
+
+
+@app.errorhandler(404)
+def notFound(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 
 if __name__ == "__main__":
