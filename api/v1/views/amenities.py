@@ -23,7 +23,7 @@ def display_amenities():
 def display_amenity_id(amenity_id):
     """Display specific amenity"""
     amenity = storage.get(Amenity, amenity_id)
-    if not Amenity:
+    if not amenity:
         abort(404)
 
     return jsonify(amenity.to_dict())
