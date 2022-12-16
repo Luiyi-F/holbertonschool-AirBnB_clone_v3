@@ -12,7 +12,7 @@ def display_states():
     states = storage.all(State).values()
     state_list = []
     for state in states:
-        state_list.append(state)
+        state_list.append(state.to_dict())
 
     return jsonify(state_list)
 
@@ -27,7 +27,8 @@ def display_state_id(state_id):
     return jsonify(state.to_dict())
 
 
-@app_views.route("/states/<state_id>", methods=["DELETE"], strict_slashes=False)
+@app_views.route("/states/<state_id>", methods=["DELETE"],
+                 strict_slashes=False)
 def delete_state(state_id):
     """Delete a specific state"""
     state = storage.get(State, state_id)
