@@ -3,10 +3,10 @@
 from models import storage
 from models.state import State
 from api.v1.views import app_views
-from flask import jsonify, abort, request
+from flask import jsonify, abort, request, make_response
 
 
-@app_views.route("/states/", methods=["GET"], strict_slashes=False)
+@app_views.route("/states", methods=["GET"], strict_slashes=False)
 def display_states():
     """Return the list of the all States"""
     states = storage.all(State).values()
@@ -37,7 +37,7 @@ def delete_state(state_id):
     storage.delete(state)
     storage.save()
 
-    return (jsonify({}), 200)
+    return make_response(jsonify({}), 200)
 
 
 @app_views.route("/states", methods=["POST"], strict_slashes=False)
@@ -53,7 +53,7 @@ def create_state():
     nw_intance = State(**state_data)
     nw_intance.save()
 
-    return (jsonify(nw_intance.to_dict()), 201)
+    return make_response(jsonify(nw_intance.to_dict()), 201)
 
 
 @app_views.route("/states/<state_id>", methods=["PUT"], strict_slashes=False)
@@ -73,4 +73,4 @@ def update_state(state_id):
             setattr(state, key, value)
     storage.save()
 
-    return (jsonify(state.to_dict()), 200)
+    return make_response(jsonify(state.to_dict()), 200)
