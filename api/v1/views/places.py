@@ -66,13 +66,14 @@ def create_place(city_id):
 
     if not city:
         abort(404)
-    if not user:
-        abort(404)
 
     if not city_data:
         return (jsonify({"error": "Not a JSON"}), 400)
     if "user_id" not in city_data:
         return (jsonify({"error": "Missing user_id"}), 400)
+
+    if not user:
+        abort(404)
     if "name" not in city_data:
         return (jsonify({"error": "Missing name"}), 400)
 
