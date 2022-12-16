@@ -59,8 +59,10 @@ def create_user():
 
     if not user_data:
         return (jsonify({"error": "Not a JSON"}), 400)
-    if "name" not in user_data:
-        return (jsonify({"error": "Missing name"}), 400)
+    if "email" not in user_data:
+        return (jsonify({"error": "Missing email"}), 400)
+    if "password" not in user_data:
+        return (jsonify({"error": "Missing password"}), 400)
 
     nw_intance = User(**user_data)
     nw_intance.save()
@@ -68,9 +70,9 @@ def create_user():
     return (jsonify(nw_intance.to_dict()), 201)
 
 
-@app_views.route("/users/<user_id>", methods=["POST"],
+@app_views.route("/users/<user_id>", methods=["PUT"],
                  strict_slashes=False)
-@swag_from("/documetation/user/update_user.yml", methods=["POST"])
+@swag_from("/documetation/user/update_user.yml", methods=["PUT"])
 def update_user(user_id):
     """Update a specific user"""
     user = storage.get(User, user_id)
