@@ -3,10 +3,13 @@
 from models import storage
 from models.state import State
 from api.v1.views import app_views
+from flasgger.utils import swag_from
 from flask import jsonify, abort, request
 
 
-@app_views.route("/states", methods=["GET"], strict_slashes=False)
+@app_views.route("/states", methods=["GET"],
+                 strict_slashes=False)
+@swag_from("documentation/state/display_states.yml", methods=["GET"])
 def display_states():
     """Return the list of the all States"""
     states = storage.all(State).values()
@@ -17,7 +20,9 @@ def display_states():
     return jsonify(state_list)
 
 
-@app_views.route("/states/<state_id>", methods=["GET"], strict_slashes=False)
+@app_views.route("/states/<state_id>", methods=["GET"],
+                 strict_slashes=False)
+@swag_from("documentation/state/display_state_id.yml", methods=["GET"])
 def display_state_id(state_id):
     """Return a specific state"""
     state = storage.get(State, state_id)
@@ -29,6 +34,8 @@ def display_state_id(state_id):
 
 @app_views.route("/states/<state_id>", methods=["DELETE"],
                  strict_slashes=False)
+@swag_from("documentation/state/delete_state.yml",
+           methods=["DELETE"])
 def delete_state(state_id):
     """Delete a specific state"""
     state = storage.get(State, state_id)
@@ -41,7 +48,9 @@ def delete_state(state_id):
     return (jsonify({}), 200)
 
 
-@app_views.route("/states", methods=["POST"], strict_slashes=False)
+@app_views.route("/states", methods=["POST"],
+                 strict_slashes=False)
+@swag_from("documentation/state/create_state.yml", methods=["POST"])
 def create_state():
     """Create a state"""
     state_data = request.get_json()
@@ -57,7 +66,9 @@ def create_state():
     return (jsonify(nw_intance.to_dict()), 201)
 
 
-@app_views.route("/states/<state_id>", methods=["PUT"], strict_slashes=False)
+@app_views.route("/states/<state_id>", methods=["PUT"],
+                 strict_slashes=False)
+@swag_from("documentation/state/update_state.yml", methods=["PUT"])
 def update_state(state_id):
     """Update a specific State"""
     state = storage.get(State, state_id)
