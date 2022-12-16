@@ -18,7 +18,7 @@ def display_users():
     for user in users:
         users_list.append(user.to_dict())
 
-    return jsonify(list)
+    return jsonify(users_list)
 
 
 @app_views.route("/users/<user_id>", methods=["GET"],
