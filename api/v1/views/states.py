@@ -12,7 +12,7 @@ def display_states():
     states = storage.all(State).values()
     state_list = []
     for state in states:
-        state_list.append(state.to_dict())
+        state_list.append(state)
 
     return jsonify(state_list)
 
