@@ -104,4 +104,4 @@ def update_review(review_id):
 
     storage.save()
 
-    return (jsonify(Place.to_dict()), 200)
+    return (jsonify(review.to_dict()), 200)
