@@ -103,4 +103,4 @@ def update_place(place_id):
 
     storage.save()
 
-    return (jsonify(place.to_dict()), 200)
+    return (jsonify(place.to_dict()), 200) 
