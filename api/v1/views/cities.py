@@ -8,9 +8,9 @@ from flask import jsonify, abort, request
 
 
 @app_views.route("/states/<state_id>/cities", methods=["GET"], strict_slashes=False)
-def display_cities():
+def display_cities(state_id):
     """Return the list of the all States"""
-    states = storage.all(State).values()
+    states = storage.get(State, state_id)
     cities_list = []
 
     if not states:
@@ -21,7 +21,7 @@ def display_cities():
     return jsonify(cities_list)
 
 
-@app_views.route("/cities/<city_id>", methods=["GET"], strict_slashes=False)
+@app_views.route("/cities/<city_id>/", methods=["GET"], strict_slashes=False)
 def display_city_id(city_id):
     """Return a specific state"""
     city = storage.get(City, city_id)
@@ -51,7 +51,7 @@ def create_state(state_id):
     state = storage.get(State, state_id)
     state_data = request.get_json()
 
-    if not state_data:
+    if not state:
         abort(404)
     if not state_data:
         return (jsonify({"error": "Not a JSON"}), 400)
